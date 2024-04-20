@@ -19,3 +19,9 @@ const router = createBrowserRouter(
     </>
   )
 );
+
+function Routercomponent() {
+  return <RouterProvider router={router} />;
+}
+
+export default Routercomponent;
