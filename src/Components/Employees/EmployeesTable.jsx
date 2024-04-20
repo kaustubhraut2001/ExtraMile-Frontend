@@ -75,7 +75,11 @@ function EmployeesTable() {
   };
 
   const handleedit = (row) => {
-    navigate(`/editemployee/${row._id}`);
+    navigate(`/editemployee`, {
+      state: {
+        employee: row,
+      },
+    });
   };
 
   const handledelete = async (row) => {};
@@ -108,7 +112,7 @@ function EmployeesTable() {
     {
       name: "Delete Employee",
       selector: (row) => (
-        <Button color={"red"} onClick={() => handledelete(row)}>
+        <Button background={"red"} onClick={() => handledelete(row)}>
           Delete
         </Button>
       ),
