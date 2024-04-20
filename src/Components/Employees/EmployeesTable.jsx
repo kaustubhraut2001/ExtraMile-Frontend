@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Center, position, useToast, Text, Button } from "@chakra-ui/react";
+import {
+  Center,
+  position,
+  useToast,
+  Text,
+  Button,
+  Input,
+} from "@chakra-ui/react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 
@@ -47,7 +54,6 @@ function EmployeesTable() {
           position: "top",
           isClosable: true,
         });
-
       }
     } catch (error) {
       toast({
@@ -85,7 +91,12 @@ function EmployeesTable() {
         <Text>Employee Table</Text>
       </Center>
       <Button onClick={handleaddEmployee}> +Add Employee</Button>
-
+      <Input
+        placeholder="Search"
+        size="md"
+        variant="filled"
+        //   onChange={}
+      />
       <DataTable columns={coloums} data={employeelist} pagination />
     </>
   );
