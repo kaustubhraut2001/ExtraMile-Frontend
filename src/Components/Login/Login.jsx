@@ -29,13 +29,17 @@ function Login() {
     console.log(user);
     setLoader(true);
     try {
-      const response = await axios.post(`${url}/auth/login`, user);
+      const response = await axios.post(`${url}/login`, user);
 
       console.log(response);
       if (response.status === 200) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        console.log(response.data.token, "token");
+        // localStorage.setItem("user", JSON.stringify(response.employee.data));
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("role", response.data.employee.role);
+        localStorage.setItem("id", response.data.employee._id);
+        localStorage.setItem("email", response.data.employee.email);
+        localStorage.setItem("name", response.data.employee.name);
 
         toast({
           title: "Login Success",
@@ -46,7 +50,7 @@ function Login() {
           isClosable: true,
         });
         setLoader(false);
-        window.location.replace("/");
+        // window.location.replace("/");
       }
     } catch (error) {
       toast({
