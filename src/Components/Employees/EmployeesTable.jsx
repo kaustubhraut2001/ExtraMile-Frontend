@@ -16,6 +16,7 @@ function EmployeesTable() {
   const toast = useToast;
   const token = localStorage.getItem("token");
   const [employeelist, setEmployeelist] = useState([]);
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
   const navigate = useNavigate();
 
   const coloums = [
@@ -46,6 +47,7 @@ function EmployeesTable() {
       console.log(reposne, "res");
       if (reposne.status === 200) {
         setEmployeelist(reposne.data.allemployees);
+        setFilteredEmployees(reposne.data.allemployees);
         toast({
           title: "Success",
           description: "Employees fetched successfully",
@@ -65,6 +67,14 @@ function EmployeesTable() {
         isClosable: true,
       });
     }
+  };
+
+  const handleSearch = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const filtered = employeelist.filter((employee) =>
+      employee.name.toLowerCase().includes(searchTerm)
+    );
+    setFilteredEmployees(filtered);
   };
 
   const handleaddEmployee = async () => {
@@ -95,9 +105,9 @@ function EmployeesTable() {
         placeholder="Search"
         size="md"
         variant="filled"
-        //   onChange={}
+        onChange={handleSearch}
       />
-      <DataTable columns={coloums} data={employeelist} pagination />
+      <DataTable columns={coloums} data={filteredEmployees} pagination />
     </>
   );
 }
