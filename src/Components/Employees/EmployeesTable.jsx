@@ -19,24 +19,6 @@ function EmployeesTable() {
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   const navigate = useNavigate();
 
-  const coloums = [
-    {
-      name: "Name",
-      selector: (row) => row.name,
-      sortable: true,
-    },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-      sortable: true,
-    },
-    {
-      name: "Phone Number",
-      selector: (row) => row.phone,
-      sortable: true,
-    },
-  ];
-
   const fetchAllemployees = async () => {
     try {
       const reposne = await axios.get(`${url}/getAll`, {
@@ -92,9 +74,48 @@ function EmployeesTable() {
     }
   };
 
+  const handleedit = (row) => {
+    navigate(`/editemployee/${row._id}`);
+  };
+
+  const handledelete = async (row) => {};
+
   useEffect(() => {
     fetchAllemployees();
   }, []);
+
+  const coloums = [
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Email",
+      selector: (row) => row.email,
+      sortable: true,
+    },
+    {
+      name: "Phone Number",
+      selector: (row) => row.phone,
+      sortable: true,
+    },
+    {
+      name: "Edit Employee",
+      selector: (row) => <Button onClick={() => handleedit(row)}>Edit</Button>,
+      sortable: true,
+    },
+    {
+      name: "Delete Employee",
+      selector: (row) => (
+        <Button color={"red"} onClick={() => handledelete(row)}>
+          Delete
+        </Button>
+      ),
+      sortable: true,
+    },
+  ];
+
   return (
     <>
       <Center>
