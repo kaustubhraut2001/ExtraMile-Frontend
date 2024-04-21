@@ -90,6 +90,48 @@ function Dashboard() {
             </Card>
           </Link>
         </Flex>
+
+        <Flex
+          direction={{ md: "column" }}
+          gap="25px"
+          justifyContent="center"
+          marginTop="30px"
+          align="center"
+        >
+          <Link
+            to={{
+              pathname: "/feedback",
+            }}
+          >
+            <Card
+              as="flex"
+              width="auto"
+              textAlign="center"
+              height={{ base: "100%", md: "150px" }}
+              minW="150px"
+              maxH="150px"
+              background="#FFFFFF"
+              borderLeft="4px solid #FF0000"
+              borderRadius="12px"
+              boxShadow="md"
+              p="2"
+              display="flex"
+              direction={{ base: "column", md: "row", lg: "row" }}
+              justifyContent={{ base: "center", md: "space-around" }}
+              alignItems="center"
+              gap="20px"
+            >
+              {/* <img src={""} alt="Total Customers" /> */}
+              <Text
+                fontSize={{ base: "0.7rem", md: "1.2rem" }}
+                fontWeight="bold"
+              >
+                Employees Review
+              </Text>
+              <Heading size="lg" color="black" textAlign="center"></Heading>
+            </Card>
+          </Link>
+        </Flex>
       </Flex>
     </>
   );

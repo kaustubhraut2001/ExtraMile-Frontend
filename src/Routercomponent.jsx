@@ -10,6 +10,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import Feedback from "./Components/Employees/Feedback";
+import FeedbackEdit from "./Components/Employees/FeedbackEdit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +22,8 @@ const router = createBrowserRouter(
         <Route path="/addemployee" element={<AddEmployeeForm />} />
         <Route path="/editemployee" element={<EditEmployeeFrom />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/editfeedback" element={<FeedbackEdit />} />
       </Route>
     </>
   )
