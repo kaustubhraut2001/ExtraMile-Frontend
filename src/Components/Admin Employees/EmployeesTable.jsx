@@ -25,7 +25,7 @@ function EmployeesTable() {
   const fetchAllemployees = async () => {
     setLoading(true);
     try {
-      const reposne = await axios.get(`${url}/getAll`, {
+      const reposne = await axios.get(`${url}/api/employees/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -91,7 +91,7 @@ function EmployeesTable() {
   const handledelete = async (row) => {
     try {
       const response = await axios.post(
-        `${url}/removeemployee`,
+        `${url}/api/employees/removeemployee`,
         {
           email: row.email,
         },

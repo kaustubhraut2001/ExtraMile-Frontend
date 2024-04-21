@@ -36,7 +36,7 @@ function FeedbackEdit() {
   const handleFeedbackUpdate = async () => {
     try {
       const response = await axios.put(
-        `${url}/updateReview`,
+        `${url}/api/employees/updateReview`,
         {
           email: employee.email,
           feedbackId: selectedFeedback._id,

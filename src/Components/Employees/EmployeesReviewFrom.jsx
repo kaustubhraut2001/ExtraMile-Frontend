@@ -31,7 +31,7 @@ const EmployeesReviewFrom = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `${url}/addreviewpreformace/${id}`,
+        `${url}/api/employees/addreviewpreformace/${id}`,
         { feedback, rating },
         {
           headers: {

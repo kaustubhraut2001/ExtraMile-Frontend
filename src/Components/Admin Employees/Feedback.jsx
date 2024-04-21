@@ -25,11 +25,14 @@ function Feedback() {
   const fetchAllemployees = async () => {
     setLoading(true);
     try {
-      const reposne = await axios.get(`${url}/getAllEmployeesWithFeedback`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const reposne = await axios.get(
+        `${url}/api/employees/getAllEmployeesWithFeedback`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(reposne, "res");
       if (reposne.status === 200) {
         setEmployeelist(reposne.data.employeesWithFeedback);

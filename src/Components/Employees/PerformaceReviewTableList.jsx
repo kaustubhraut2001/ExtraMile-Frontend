@@ -16,11 +16,14 @@ function PerformaceReviewTableList() {
 
   const fetchemployeedetails = async () => {
     try {
-      const response = await axios.get(`${url}/getemployeedetails/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${url}/api/employees/getemployeedetails/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response, "res employee");
       if (response.status === 200) {
         setEmployeeName(response.data.name);
@@ -48,11 +51,14 @@ function PerformaceReviewTableList() {
   const fetchPerformanceReviews = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${url}/getperformacereview/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${url}/api/employees/getperformacereview/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response, "res");
       if (response.status === 200) {
         setPerformanceReviews(response.data);

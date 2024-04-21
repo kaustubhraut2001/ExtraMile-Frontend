@@ -33,7 +33,7 @@ function EditEmployeeForm() {
     const email = locationdata.state.employee.email;
     try {
       const response = await axios.put(
-        `${url}/updateemployeesdetails`,
+        `${url}/api/employees/updateemployeesdetails`,
         {
           name,
           email,

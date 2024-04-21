@@ -34,7 +34,7 @@ function AssignPerformanceReview() {
   const handleAssignReview = async () => {
     try {
       const response = await axios.post(
-        `${url}/assigntoemployee`,
+        `${url}/api/employees/assigntoemployee`,
         {
           reviewee: selectedEmployee._id,
           reviewers: selectedReviewers,
@@ -75,7 +75,7 @@ function AssignPerformanceReview() {
   const fetchAllemployees = async () => {
     setLoading(true);
     try {
-      const reposne = await axios.get(`${url}/getAll`, {
+      const reposne = await axios.get(`${url}/api/employees/getAll`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
