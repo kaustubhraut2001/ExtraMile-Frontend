@@ -14,6 +14,7 @@ import Feedback from "./Components/Admin Employees/Feedback";
 import FeedbackEdit from "./Components/Admin Employees/FeedbackEdit";
 import EmployeesDashboard from "./Components/Employees/EmployeesDashboard";
 import PerformaceReviewTableList from "./Components/Employees/PerformaceReviewTableList";
+import AssignPerfoanceReview from "./Components/Admin Employees/AssignPerfoanceReview";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
           path="/perfromacereviewlist"
           element={<PerformaceReviewTableList />}
         />
+        <Route path="/assignreview" element={<AssignPerfoanceReview />} />
       </Route>
     </>
   )
