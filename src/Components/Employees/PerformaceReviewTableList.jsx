@@ -10,33 +10,35 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import DataTable from "react-data-table-component";
+
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function PerformaceReviewTableList() {
   const url = import.meta.env.VITE_API_URL;
   const toast = useToast;
   const token = localStorage.getItem("token");
-  const [employeelist, setEmployeelist] = useState([]);
-  const [filteredEmployees, setFilteredEmployees] = useState([]);
-  const [deletstate, useStatedelete] = useState();
+  const [performanceReviews, setPerformanceReviews] = useState([]);
   const [loading, setLoading] = useState(false);
+  const id = localStorage.getItem("id"); // Get the employee ID from local storage
+  const [employeeName, setEmployeeName] = useState("");
+
+  const employeeid = useLocation();
   const navigate = useNavigate();
 
-  const fetchAllemployees = async () => {
-    setLoading(true);
+  const fetchemployeedetails = async () => {
     try {
-      const reposne = await axios.get(`${url}/getAll`, {
+      const response = await axios.get(`${url}/getemployeedetails/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(reposne, "res");
-      if (reposne.status === 200) {
-        setEmployeelist(reposne.data.allemployees);
-        setFilteredEmployees(reposne.data.allemployees);
+      console.log(response, "res employee");
+      if (response.status === 200) {
+        setEmployeeName(response.data.name);
         toast({
           title: "Success",
-          description: "Employees fetched successfully",
+          description: "Employee details fetched successfully",
           status: "success",
           duration: 3000,
           position: "top",
@@ -52,44 +54,92 @@ function PerformaceReviewTableList() {
         position: "top",
         isClosable: true,
       });
+    }
+  };
+
+  const fetchPerformanceReviews = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${url}/getperformacereview/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response, "res");
+      if (response.status === 200) {
+        setPerformanceReviews(response.data);
+        toast({
+          title: "Success",
+          description: "Performance reviews fetched successfully",
+          status: "success",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Error while fetching performance reviews",
+        status: "error",
+        duration: 3000,
+        position: "top",
+        isClosable: true,
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSearch = (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    const filtered = employeelist.filter((employee) =>
-      employee.name.toLowerCase().includes(searchTerm)
-    );
-    setFilteredEmployees(filtered);
+  const handleAddReview = (row) => {
+    try {
+      const id = row._id;
+      console.log("inside handle review");
+      console.log("Employee ID:", id);
+      console.log("Employee Data:", row);
+      navigate(`/employeeaddreview/${id}`, {
+        state: {
+          employeesdata: row,
+        },
+      });
+    } catch (error) {
+      console.error(error.message);
+      toast({
+        title: "Error",
+        description: "Error while adding review",
+        status: "error",
+        duration: 3000,
+        position: "top",
+        isClosable: true,
+      });
+    }
   };
 
   useEffect(() => {
-    fetchAllemployees();
-  }, [deletstate]);
+    fetchemployeedetails();
+    fetchPerformanceReviews();
+  }, []);
 
-  const coloums = [
+  const columns = [
     {
-      name: "Name",
-      selector: (row) => row.name,
+      name: "Reviewee",
+      selector: (row) => employeeName,
       sortable: true,
     },
     {
-      name: "Email",
-      selector: (row) => row.email,
+      name: "Reviewers",
+      selector: (row) => row.reviewers.join(", "),
       sortable: true,
     },
     {
-      name: "Phone Number",
-      selector: (row) => row.phone,
+      name: "Status",
+      selector: (row) => row.status,
       sortable: true,
     },
-
     {
-      name: " Review",
-      selector: (row) => (
-        <Button background={"white"} onClick={() => handledelete(row)}>
+      name: "Action",
+      cell: (row) => (
+        <Button background={"white"} onClick={() => handleAddReview(row)}>
           Add Review
         </Button>
       ),
@@ -100,15 +150,8 @@ function PerformaceReviewTableList() {
   return (
     <>
       <Center>
-        <Text>Performace Review Need To Submit </Text>
+        <Text>Performance Review Need To Submit </Text>
       </Center>
-
-      <Input
-        placeholder="Search"
-        size="md"
-        variant="filled"
-        onChange={handleSearch}
-      />
       {loading ? (
         <Center>
           <Spinner
@@ -120,7 +163,7 @@ function PerformaceReviewTableList() {
           />
         </Center>
       ) : (
-        <DataTable columns={coloums} data={filteredEmployees} pagination />
+        <DataTable columns={columns} data={performanceReviews} pagination />
       )}
     </>
   );
