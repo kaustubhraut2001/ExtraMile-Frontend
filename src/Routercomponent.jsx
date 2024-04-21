@@ -1,6 +1,6 @@
-import AddEmployeeForm from "./Components/Employees/AddEmployeeForm";
-import EditEmployeeFrom from "./Components/Employees/EditEmployeeFrom";
-import EmployeesTable from "./Components/Employees/EmployeesTable";
+import AddEmployeeForm from "./Components/Admin Employees/AddEmployeeForm";
+import EditEmployeeFrom from "./Components/Admin Employees/EditEmployeeFrom";
+import EmployeesTable from "./Components/Admin Employees/EmployeesTable";
 import Login from "./Components/Login/Login";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import {
@@ -10,8 +10,10 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Feedback from "./Components/Employees/Feedback";
-import FeedbackEdit from "./Components/Employees/FeedbackEdit";
+import Feedback from "./Components/Admin Employees/Feedback";
+import FeedbackEdit from "./Components/Admin Employees/FeedbackEdit";
+import EmployeesDashboard from "./Components/Employees/EmployeesDashboard";
+import PerformaceReviewTableList from "./Components/Employees/PerformaceReviewTableList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +26,11 @@ const router = createBrowserRouter(
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/editfeedback" element={<FeedbackEdit />} />
+        <Route path="/employeesdashboard" element={<EmployeesDashboard />} />
+        <Route
+          path="/perfromacereviewlist"
+          element={<PerformaceReviewTableList />}
+        />
       </Route>
     </>
   )
