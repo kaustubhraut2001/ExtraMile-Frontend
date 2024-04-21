@@ -33,6 +33,47 @@ function AssignPerformanceReview() {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [selectedReviewers, setSelectedReviewers] = useState([]);
 
+  const handleAssignReview = async () => {
+    try {
+      const response = await axios.post(
+        `${url}/assigntoemployee`,
+        {
+          reviewee: selectedEmployee._id,
+          reviewers: selectedReviewers,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response, "response");
+      if (response.status === 201) {
+        toast({
+          title: "Success",
+          description: "Performance review assigned successfully",
+          status: "success",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
+        setSelectedEmployee(null);
+        setSelectedReviewers([]);
+        onClose();
+      }
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Error while assigning performance review",
+        status: "error",
+        duration: 3000,
+        position: "top",
+        isClosable: true,
+      });
+    }
+  };
+
   const fetchAllemployees = async () => {
     setLoading(true);
     try {
@@ -80,7 +121,7 @@ function AssignPerformanceReview() {
 
   useEffect(() => {
     fetchAllemployees();
-  }, [deletstate]);
+  }, []);
 
   const handleedit = (employee) => {
     setSelectedEmployee(employee);
@@ -92,47 +133,6 @@ function AssignPerformanceReview() {
       ? e.target.value
       : [e.target.value];
     setSelectedReviewers(selectedOption);
-  };
-
-  const handleAssignReview = async () => {
-    try {
-      const response = await axios.post(
-        `${url}/assigntoemployee`,
-        {
-          reviewee: selectedEmployee._id,
-          reviewers: selectedReviewers,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response, "response");
-      if (response.status === 201) {
-        toast({
-          title: "Success",
-          description: "Performance review assigned successfully",
-          status: "success",
-          duration: 3000,
-          position: "top",
-          isClosable: true,
-        });
-        setSelectedEmployee(null);
-        setSelectedReviewers([]);
-        onClose();
-      }
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: "Error",
-        description: "Error while assigning performance review",
-        status: "error",
-        duration: 3000,
-        position: "top",
-        isClosable: true,
-      });
-    }
   };
 
   const coloums = [
