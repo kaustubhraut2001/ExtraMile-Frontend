@@ -1,9 +1,13 @@
 import React from "react";
-import { Flex, Card, Text, Heading } from "@chakra-ui/react";
+import { Flex, Card, Text, Heading, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 function EmployeesDashboard() {
   const role = localStorage.getItem("role");
+  const handlelogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
 
   return (
     <>
@@ -17,6 +21,7 @@ function EmployeesDashboard() {
         <Heading as="h1" size="xl" color="white">
           {`${role} Dashboard`}
         </Heading>
+        <Button onClick={handlelogout}>Log out</Button>
       </Flex>
 
       <Flex direction={{ base: "column", md: "row" }} gap="25px" p="4">

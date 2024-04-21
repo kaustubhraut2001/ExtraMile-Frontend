@@ -45,7 +45,7 @@ function Login() {
 
         toast({
           title: "Login Success",
-          description: "Welcome to Zemix Service",
+          description: "Login Sucessful",
           status: "success",
           duration: 3000,
           position: "top",
