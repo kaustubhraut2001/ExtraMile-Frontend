@@ -21,7 +21,7 @@ function Login() {
   const toast = useToast();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
+  const role = localStorage.getItem("role");
   const url = import.meta.env.VITE_API_URL;
   const handleLogin = async (e) => {
     const user = {
@@ -52,7 +52,13 @@ function Login() {
           isClosable: true,
         });
         setLoader(false);
-        navigate("/dashboard");
+        if (role === "admin") {
+          navigate("/dashboard");
+        }
+
+        if (role === "user") {
+          navigate("/employeesdashboard");
+        }
         // window.location.replace("/");
       }
     } catch (error) {
