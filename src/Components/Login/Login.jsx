@@ -10,6 +10,7 @@ import {
   Spinner,
   useToast,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -19,6 +20,7 @@ function Login() {
   const password = useRef();
   const toast = useToast();
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const url = import.meta.env.VITE_API_URL;
   const handleLogin = async (e) => {
@@ -50,6 +52,7 @@ function Login() {
           isClosable: true,
         });
         setLoader(false);
+        navigate("/dashboard");
         // window.location.replace("/");
       }
     } catch (error) {

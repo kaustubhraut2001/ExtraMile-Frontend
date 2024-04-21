@@ -2,6 +2,7 @@ import AddEmployeeForm from "./Components/Employees/AddEmployeeForm";
 import EditEmployeeFrom from "./Components/Employees/EditEmployeeFrom";
 import EmployeesTable from "./Components/Employees/EmployeesTable";
 import Login from "./Components/Login/Login";
+import Dashboard from "./Components/Dashboard/Dashboard";
 import {
   Route,
   RouterProvider,
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
         <Route path="/employeestable" element={<EmployeesTable />} />
         <Route path="/addemployee" element={<AddEmployeeForm />} />
         <Route path="/editemployee" element={<EditEmployeeFrom />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </>
   )

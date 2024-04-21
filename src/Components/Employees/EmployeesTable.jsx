@@ -7,6 +7,7 @@ import {
   Text,
   Button,
   Input,
+  Spinner,
 } from "@chakra-ui/react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
@@ -17,9 +18,12 @@ function EmployeesTable() {
   const token = localStorage.getItem("token");
   const [employeelist, setEmployeelist] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
+  const [deletstate, useStatedelete] = useState();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const fetchAllemployees = async () => {
+    setLoading(true);
     try {
       const reposne = await axios.get(`${url}/getAll`, {
         headers: {
@@ -48,6 +52,8 @@ function EmployeesTable() {
         position: "top",
         isClosable: true,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,11 +88,47 @@ function EmployeesTable() {
     });
   };
 
-  const handledelete = async (row) => {};
+  const handledelete = async (row) => {
+    try {
+      const response = await axios.post(
+        `${url}/removeemployee`,
+        {
+          email: row.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response, "res");
+      useStatedelete(response.data);
+      if (response.status === 200) {
+        toast({
+          title: "Success",
+          description: "Employee deleted successfully",
+          status: "success",
+          duration: 3000,
+          position: "top",
+          isClosable: true,
+        });
+        fetchAllemployees();
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Error while deleting employee",
+        status: "error",
+        duration: 3000,
+        position: "top",
+        isClosable: true,
+      });
+    }
+  };
 
   useEffect(() => {
     fetchAllemployees();
-  }, []);
+  }, [deletstate]);
 
   const coloums = [
     {
@@ -132,7 +174,19 @@ function EmployeesTable() {
         variant="filled"
         onChange={handleSearch}
       />
-      <DataTable columns={coloums} data={filteredEmployees} pagination />
+      {loading ? (
+        <Center>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+          />
+        </Center>
+      ) : (
+        <DataTable columns={coloums} data={filteredEmployees} pagination />
+      )}
     </>
   );
 }
