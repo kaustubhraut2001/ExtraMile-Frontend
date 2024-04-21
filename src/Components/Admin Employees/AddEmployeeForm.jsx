@@ -59,47 +59,49 @@ function AddEmployeeForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormControl mb={4}>
-        <FormLabel>Name</FormLabel>
-        <Input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          isRequired
-        />
-      </FormControl>
-      <FormControl mb={4}>
-        <FormLabel>Email</FormLabel>
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          isRequired
-        />
-      </FormControl>
-      <FormControl mb={4}>
-        <FormLabel>Phone</FormLabel>
-        <Input
-          type="tel"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          isRequired
-        />
-      </FormControl>
-      <FormControl mb={4}>
-        <FormLabel>Password</FormLabel>
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          isRequired
-        />
-      </FormControl>
-      <Button type="submit" colorScheme="blue">
-        Create Employee
-      </Button>
-    </form>
+    <Center>
+      <form onSubmit={handleSubmit} style={{ width: "300px" }}>
+        <FormControl mb={4}>
+          <FormLabel>Name</FormLabel>
+          <Input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            isRequired
+          />
+        </FormControl>
+        <FormControl mb={4}>
+          <FormLabel>Email</FormLabel>
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            isRequired
+          />
+        </FormControl>
+        <FormControl mb={4}>
+          <FormLabel>Phone</FormLabel>
+          <Input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            isRequired
+          />
+        </FormControl>
+        <FormControl mb={4}>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            isRequired
+          />
+        </FormControl>
+        <Button type="submit" colorScheme="blue" width="100%">
+          Create Employee
+        </Button>
+      </form>
+    </Center>
   );
 }
 

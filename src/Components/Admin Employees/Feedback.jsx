@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Center,
-  position,
-  useToast,
   Text,
   Button,
   Input,
   Spinner,
+  Box,
+  useToast,
 } from "@chakra-ui/react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 
 function Feedback() {
   const url = import.meta.env.VITE_API_URL;
-  const toast = useToast;
+  const toast = useToast();
   const token = localStorage.getItem("token");
   const [employeelist, setEmployeelist] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
@@ -75,7 +75,7 @@ function Feedback() {
 
   useEffect(() => {
     fetchAllemployees();
-  }, [deletstate]);
+  }, []);
 
   const coloums = [
     {
@@ -144,22 +144,28 @@ function Feedback() {
 
     {
       name: "Action",
-      selector: (row) => <Button onClick={() => handleedit(row)}>Edit</Button>,
+      selector: (row) => (
+        <Button colorScheme="blue" onClick={() => handleedit(row)}>
+          Edit
+        </Button>
+      ),
       sortable: true,
     },
   ];
 
   return (
-    <>
+    <Box p={4}>
       <Center>
-        <Text>Employee Feedback</Text>
+        <Text fontSize="2xl" mb={4}>
+          Employee Feedback
+        </Text>
       </Center>
-      {/* <Button onClick={handleaddEmployee}> +Add Employee</Button> */}
       <Input
         placeholder="Search"
         size="md"
         variant="filled"
         onChange={handleSearch}
+        mb={4}
       />
       {loading ? (
         <Center>
@@ -172,9 +178,14 @@ function Feedback() {
           />
         </Center>
       ) : (
-        <DataTable columns={coloums} data={filteredEmployees} pagination />
+        <DataTable
+          columns={coloums}
+          data={filteredEmployees}
+          pagination
+          noHeader
+        />
       )}
-    </>
+    </Box>
   );
 }
 

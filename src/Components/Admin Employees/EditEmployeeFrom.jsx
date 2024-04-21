@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Heading,
+} from "@chakra-ui/react";
 
 function EditEmployeeForm() {
   const locationdata = useLocation();
@@ -25,15 +32,20 @@ function EditEmployeeForm() {
     e.preventDefault();
     const email = locationdata.state.employee.email;
     try {
-      const response = await axios.put(`${url}/updateemployeesdetails`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await axios.put(
+        `${url}/updateemployeesdetails`,
+        {
+          name,
+          email,
+          phone,
+          password,
         },
-        name,
-        email,
-        phone,
-        password,
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(response);
       toast({
         title: "Success",
@@ -57,6 +69,9 @@ function EditEmployeeForm() {
 
   return (
     <Box p={4}>
+      <Heading as="h2" size="lg" mb={4}>
+        Edit Employee
+      </Heading>
       <form onSubmit={handleEdit}>
         <FormControl mb={4}>
           <FormLabel>Name</FormLabel>

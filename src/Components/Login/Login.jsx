@@ -99,7 +99,7 @@ function Login() {
       >
         <Box width={["300px", "500px"]} padding={"2rem"} bg={"white"}>
           <Center fontSize={"1.5rem"} fontWeight={"600"}>
-            ADMIN
+            Login
           </Center>
 
           <Box

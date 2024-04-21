@@ -69,7 +69,7 @@ const EmployeesReviewFrom = () => {
   };
 
   return (
-    <Box maxW="md" mx="auto" mt={10}>
+    <Box maxW="md" mx="auto" mt={10} p={4} bg="gray.100" borderRadius="lg">
       <form onSubmit={handleSubmit}>
         <FormControl id="feedback" isRequired>
           <FormLabel>Feedback</FormLabel>

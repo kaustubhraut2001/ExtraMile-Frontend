@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Center,
-  position,
   useToast,
   Text,
   Button,
@@ -26,7 +25,6 @@ function AssignPerformanceReview() {
   const token = localStorage.getItem("token");
   const [employeelist, setEmployeelist] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
-  const [deletstate, useStatedelete] = useState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -135,41 +133,12 @@ function AssignPerformanceReview() {
     setSelectedReviewers(selectedOption);
   };
 
-  const coloums = [
-    {
-      name: "Name",
-      selector: (row) => row.name,
-      sortable: true,
-    },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-      sortable: true,
-    },
-    {
-      name: "Phone Number",
-      selector: (row) => row.phone,
-      sortable: true,
-    },
-    {
-      name: "Role",
-      selector: (row) => row.role,
-      sortable: true,
-    },
-    {
-      name: "Assign Employee",
-      selector: (row) =>
-        row.role === "user" && (
-          <Button onClick={() => handleedit(row)}>Assign</Button>
-        ),
-      sortable: true,
-    },
-  ];
-
   return (
     <>
       <Center>
-        <Text>Assign Review Table</Text>
+        <Text fontSize="2xl" mb={4}>
+          Assign Performance Review
+        </Text>
       </Center>
 
       <Input
@@ -177,6 +146,7 @@ function AssignPerformanceReview() {
         size="md"
         variant="filled"
         onChange={handleSearch}
+        mb={4}
       />
       {loading ? (
         <Center>
@@ -189,34 +159,32 @@ function AssignPerformanceReview() {
           />
         </Center>
       ) : (
-        <div>
-          <table>
-            <thead>
-              <tr>
-                {coloums.map((coloum, index) => (
-                  <th key={index}>{coloum.name}</th>
-                ))}
+        <table style={{ width: "100%" }}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Role</th>
+              <th>Assign Employee</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredEmployees.map((employee) => (
+              <tr key={employee._id}>
+                <td>{employee.name}</td>
+                <td>{employee.email}</td>
+                <td>{employee.phone}</td>
+                <td>{employee.role}</td>
+                <td>
+                  {employee.role === "user" && (
+                    <Button onClick={() => handleedit(employee)}>Assign</Button>
+                  )}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {filteredEmployees.map((employee, index) => (
-                <tr key={index}>
-                  <td>{employee.name}</td>
-                  <td>{employee.email}</td>
-                  <td>{employee.phone}</td>
-                  <td>{employee.role}</td>
-                  <td>
-                    {employee.role === "user" && (
-                      <Button onClick={() => handleedit(employee)}>
-                        Assign
-                      </Button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       )}
 
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -229,6 +197,9 @@ function AssignPerformanceReview() {
             <Select
               placeholder="Select Reviewers"
               onChange={handleSelectReviewer}
+              size="md"
+              variant="filled"
+              mb={4}
             >
               {employeelist
                 .filter(

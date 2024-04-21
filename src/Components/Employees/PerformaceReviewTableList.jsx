@@ -1,29 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Center,
-  position,
-  useToast,
-  Text,
-  Button,
-  Input,
-  Spinner,
-} from "@chakra-ui/react";
+import { Center, Text, Button, Spinner, useToast } from "@chakra-ui/react";
 import DataTable from "react-data-table-component";
-
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function PerformaceReviewTableList() {
   const url = import.meta.env.VITE_API_URL;
-  const toast = useToast;
+  const toast = useToast();
   const token = localStorage.getItem("token");
   const [performanceReviews, setPerformanceReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const id = localStorage.getItem("id"); // Get the employee ID from local storage
   const [employeeName, setEmployeeName] = useState("");
-
-  const employeeid = useLocation();
   const navigate = useNavigate();
 
   const fetchemployeedetails = async () => {
@@ -123,7 +111,7 @@ function PerformaceReviewTableList() {
   const columns = [
     {
       name: "Reviewee",
-      selector: (row) => employeeName,
+      selector: () => employeeName,
       sortable: true,
     },
     {
@@ -150,7 +138,9 @@ function PerformaceReviewTableList() {
   return (
     <>
       <Center>
-        <Text>Performance Review Need To Submit </Text>
+        <Text fontSize="xl" fontWeight="bold" mb={4}>
+          Performance Review Need To Submit
+        </Text>
       </Center>
       {loading ? (
         <Center>

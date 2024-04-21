@@ -74,13 +74,15 @@ function FeedbackEdit() {
   };
 
   return (
-    <Box>
-      <Heading as="h2" size="md" mb="4">
+    <Box p={4}>
+      <Heading as="h2" size="md" mb={4}>
         Employee Details
       </Heading>
-      <Text>Employee Name: {employee.name}</Text>
-      <Text>Employee Mobile: {employee.phone}</Text>
-      <Text>Employee Email: {employee.email}</Text>
+      <Box mb={4}>
+        <Text>Employee Name: {employee.name}</Text>
+        <Text>Employee Mobile: {employee.phone}</Text>
+        <Text>Employee Email: {employee.email}</Text>
+      </Box>
 
       <FormControl mt="4">
         <FormLabel>Select Feedback</FormLabel>

@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Center,
-  position,
-  useToast,
   Text,
   Button,
   Input,
   Spinner,
+  Box,
+  useToast,
 } from "@chakra-ui/react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 
 function EmployeesTable() {
   const url = import.meta.env.VITE_API_URL;
-  const toast = useToast;
+  const toast = useToast();
   const token = localStorage.getItem("token");
   const [employeelist, setEmployeelist] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
@@ -128,7 +128,7 @@ function EmployeesTable() {
 
   useEffect(() => {
     fetchAllemployees();
-  }, [deletstate]);
+  }, []);
 
   const coloums = [
     {
@@ -148,13 +148,17 @@ function EmployeesTable() {
     },
     {
       name: "Edit Employee",
-      selector: (row) => <Button onClick={() => handleedit(row)}>Edit</Button>,
+      selector: (row) => (
+        <Button colorScheme="blue" onClick={() => handleedit(row)}>
+          Edit
+        </Button>
+      ),
       sortable: true,
     },
     {
       name: "Delete Employee",
       selector: (row) => (
-        <Button background={"red"} onClick={() => handledelete(row)}>
+        <Button colorScheme="red" onClick={() => handledelete(row)}>
           Delete
         </Button>
       ),
@@ -163,16 +167,21 @@ function EmployeesTable() {
   ];
 
   return (
-    <>
+    <Box p={4}>
       <Center>
-        <Text>Employee Table</Text>
+        <Text fontSize="2xl" mb={4}>
+          Employee Table
+        </Text>
       </Center>
-      <Button onClick={handleaddEmployee}> +Add Employee</Button>
+      <Button onClick={handleaddEmployee} colorScheme="teal" mb={4}>
+        + Add Employee
+      </Button>
       <Input
         placeholder="Search"
         size="md"
         variant="filled"
         onChange={handleSearch}
+        mb={4}
       />
       {loading ? (
         <Center>
@@ -187,7 +196,7 @@ function EmployeesTable() {
       ) : (
         <DataTable columns={coloums} data={filteredEmployees} pagination />
       )}
-    </>
+    </Box>
   );
 }
 
