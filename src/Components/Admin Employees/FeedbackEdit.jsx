@@ -27,7 +27,7 @@ function FeedbackEdit() {
 
   const handleFeedbackChange = (e) => {
     const feedbackId = e.target.value;
-    const feedback = feedbacks.find((fb) => fb._id === feedbackId);
+    const feedback = feedbacks.find((fb) => fb?._id === feedbackId);
     setSelectedFeedback(feedback);
   };
 
@@ -39,9 +39,9 @@ function FeedbackEdit() {
         `${url}/api/employees/updateReview`,
         {
           email: employee.email,
-          feedbackId: selectedFeedback._id,
-          feedback: selectedFeedback.feedback,
-          rating: selectedFeedback.rating,
+          feedbackId: selectedFeedback?._id,
+          feedback: selectedFeedback?.feedback,
+          rating: selectedFeedback?.rating,
         },
         {
           headers: {
@@ -86,10 +86,10 @@ function FeedbackEdit() {
 
       <FormControl mt="4">
         <FormLabel>Select Feedback</FormLabel>
-        <Select value={selectedFeedback._id} onChange={handleFeedbackChange}>
+        <Select value={selectedFeedback?._id} onChange={handleFeedbackChange}>
           {feedbacks.map((fb) => (
-            <option key={fb._id} value={fb._id}>
-              Feedback: {fb.feedback} - Rating: {fb.rating}
+            <option key={fb?._id} value={fb?._id}>
+              Feedback: {fb?.feedback} - Rating: {fb?.rating}
             </option>
           ))}
         </Select>
