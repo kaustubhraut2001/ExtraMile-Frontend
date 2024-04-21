@@ -24,7 +24,7 @@ function AddEmployeeForm() {
       const token = localStorage.getItem("token");
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await axios.post(
-        `${apiUrl}/create`,
+        `${apiUrl}/api/employees/create`,
         { name, email, phone, password },
         { headers: { Authorization: `Bearer ${token}` } }
       );

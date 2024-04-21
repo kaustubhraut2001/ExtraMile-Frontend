@@ -31,7 +31,7 @@ function Login() {
     console.log(user);
     setLoader(true);
     try {
-      const response = await axios.post(`${url}/login`, user);
+      const response = await axios.post(`${url}/api/employees/login`, user);
 
       console.log(response);
       if (response.status === 200) {
